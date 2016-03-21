@@ -5,7 +5,7 @@ apply plugin: 'groovy'
 apply plugin: 'java'
 apply plugin: 'idea'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 1.8 // Camel 2.14 onwards requires JDK 1.7 or better
 
 repositories {
     jcenter()
