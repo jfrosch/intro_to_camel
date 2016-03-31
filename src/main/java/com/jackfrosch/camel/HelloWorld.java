@@ -13,6 +13,7 @@ public class HelloWorld {
 
         CamelContext ctx = new DefaultCamelContext();
 
+        // Use a timer component to generate message events
         ctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
