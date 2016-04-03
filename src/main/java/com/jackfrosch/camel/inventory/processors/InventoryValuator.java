@@ -3,6 +3,7 @@ package com.jackfrosch.camel.inventory.processors;
 import com.jackfrosch.camel.inventory.domain.StockItem;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
+import org.apache.camel.Processor;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.function.Predicate;
  * Exchange in header "INVENTORY_NONTAXABLE_VALUATION" will contain the total value of the Inventory not subject to sales tax
  *
  */
-public class InventoryValuator implements org.apache.camel.Processor {
+public class InventoryValuator implements Processor {
     @Override
     public void process(Exchange exchange) throws Exception {
         Message in = exchange.getIn();
