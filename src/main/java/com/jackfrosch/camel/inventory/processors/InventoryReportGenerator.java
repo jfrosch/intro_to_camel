@@ -42,7 +42,7 @@ public class InventoryReportGenerator implements Processor {
 
     private String buildReport(Message in) {
         StringBuilder sb = new StringBuilder();
-        sb.append("Inventory Report - ").append(LocalDate.now().format(DateTimeFormatter.ofPattern("MM / dd / yyyy"))).append("\n\n")
+        sb.append("Inventory Report - ").append(createReportDate()).append("\n\n")
             .append("Summary")
             .append("\n----------------------------------------------\n\n")
             .append("Total SKUs in inventory: ").append(in.getHeader("INVENTORY_COUNT")).append("\n")
@@ -69,5 +69,9 @@ public class InventoryReportGenerator implements Processor {
         sb.append("----------------------------------------------\n\n--End Report--");
 
         return sb.toString();
+    }
+
+    protected String createReportDate() {
+        return LocalDate.now().format(DateTimeFormatter.ofPattern("MM / dd / yyyy"));
     }
 }
