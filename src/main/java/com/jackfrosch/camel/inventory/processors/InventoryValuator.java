@@ -32,7 +32,7 @@ public class InventoryValuator implements Processor {
     }
 
     // Note: The Predicate here is a Java 8 Predicate functional interface, not a Camel Predicate!
-    private BigDecimal calculateInventoryValuation(List<StockItem> items, Predicate<StockItem> selector) {
+    protected BigDecimal calculateInventoryValuation(List<StockItem> items, Predicate<StockItem> selector) {
         return items.stream()                       // we could use a parallelStream() here
                     .filter(selector)
                     .map(StockItem::getItemValuation)
