@@ -1,4 +1,4 @@
-package inventory.domain;
+package com.jackfrosch.camel.inventory.domain;
 
 import java.math.BigDecimal;
 

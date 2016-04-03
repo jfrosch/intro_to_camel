@@ -1,6 +1,6 @@
-package inventory.processors;
+package com.jackfrosch.camel.inventory.processors;
 
-import inventory.domain.StockItem;
+import com.jackfrosch.camel.inventory.domain.StockItem;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;

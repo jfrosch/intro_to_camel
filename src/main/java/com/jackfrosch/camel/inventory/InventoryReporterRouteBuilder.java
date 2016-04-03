@@ -1,8 +1,8 @@
-package inventory;
+package com.jackfrosch.camel.inventory;
 
-import inventory.processors.InventoryProcessor;
-import inventory.processors.InventoryReportGenerator;
-import inventory.processors.InventoryValuator;
+import com.jackfrosch.camel.inventory.processors.InventoryProcessor;
+import com.jackfrosch.camel.inventory.processors.InventoryReportGenerator;
+import com.jackfrosch.camel.inventory.processors.InventoryValuator;
 import org.apache.camel.builder.RouteBuilder;
 
 /**
