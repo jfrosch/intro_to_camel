@@ -3,6 +3,7 @@ package com.jackfrosch.camel.inventory.processors;
 import com.jackfrosch.camel.inventory.domain.StockItem;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
+import org.apache.camel.Processor;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +28,7 @@ import java.util.List;
  * <p>
  * This report will be stored in the exchange in body, replacing the List of StockItems
  */
-public class InventoryReportGenerator implements org.apache.camel.Processor {
+public class InventoryReportGenerator implements Processor {
     @Override
     public void process(Exchange exchange) throws Exception {
         Message in = exchange.getIn();
