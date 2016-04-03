@@ -5,6 +5,10 @@ import inventory.processors.InventoryReportGenerator;
 import inventory.processors.InventoryValuator;
 import org.apache.camel.builder.RouteBuilder;
 
+/**
+ * These routes are a bit contrived, but illustrate some fundamental Camel
+ * routing and processing ideas
+ */
 class InventoryReporterRouteBuilder extends RouteBuilder {
     @Override
     public void configure() throws Exception {
