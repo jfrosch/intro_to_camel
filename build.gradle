@@ -17,9 +17,9 @@ sourceSets {
         groovy {
             compileClasspath += main.output + test.output
             runtimeClasspath += main.output + test.output
-            srcDir file('src/integration-test/groovy')
+            srcDir file('src/integrationTest/groovy')
         }
-        resources.srcDir file('src/integration-test/resources')
+        resources.srcDir file('src/integrationTest/resources')
     }
 }
 
@@ -34,7 +34,7 @@ configurations {
 idea {
     module {
         //add integration test source dirs to IDEA
-        testSourceDirs += file('src/integration-test/groovy')
+        testSourceDirs += file('src/integrationTest/groovy')
         scopes.TEST.plus += [ configurations.integrationTestCompile ]
         downloadJavadoc = false
         downloadSources = false
