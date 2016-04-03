@@ -12,7 +12,7 @@ import org.apache.camel.builder.RouteBuilder;
 class InventoryReporterRouteBuilder extends RouteBuilder {
     @Override
     public void configure() throws Exception {
-        from("file:///tmp/camel-demo/inventory/in?delay=1s&move=../archive") // could use delete, but then, it'd be deleted!
+        from("file:/tmp/camel-demo/inventory/in?delay=1s&move=../archive") // endpoint is a consumer
             .convertBodyTo(String.class)
             .process(new InventoryProcessor())
             .to("direct:valueInventory");
@@ -23,7 +23,7 @@ class InventoryReporterRouteBuilder extends RouteBuilder {
 
         from("direct:reportInventory")
             .process(new InventoryReportGenerator())
-            .to("file:///tmp/camel-demo/inventory/out");
+            .to("file:///tmp/camel-demo/inventory/out");                  //  endpoint is a producer
 
     }
 }
