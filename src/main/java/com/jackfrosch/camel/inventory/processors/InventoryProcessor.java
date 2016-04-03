@@ -36,7 +36,7 @@ public class InventoryProcessor implements Processor {
         in.setHeader("INVENTORY_COUNT", items.size());
     }
 
-    private List<StockItem> parseInput(String input) {
+    protected List<StockItem> parseInput(String input) {
         List<StockItem> items = new ArrayList<>();
 
         String[] lines = input.split("\n");
