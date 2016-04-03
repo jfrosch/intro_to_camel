@@ -10,22 +10,22 @@ import java.util.List;
 
 /**
  * Input:
- *
+ * <p>
  * Exchange in body has a the List of StockItems
- *
+ * <p>
  * Three headers should be set on the in Message:
- *
- *  INVENTORY_COUNT
- *  INVENTORY_TAXABLE_VALUATION
- *  INVENTORY_NONTAXABLE_VALUATION
- *  Exchange.FILE_NAME containing input csv file name
- *
- *  Output:
- *
- *  A text report about the inventory results will be generated summarizing the
- *  inventory in the top section and detailing the inventory in the details section.
- *
- *  This report will be stored in the exchange in body, replacing the List of StockItems
+ * <p>
+ * INVENTORY_COUNT
+ * INVENTORY_TAXABLE_VALUATION
+ * INVENTORY_NONTAXABLE_VALUATION
+ * Exchange.FILE_NAME containing input csv file name
+ * <p>
+ * Output:
+ * <p>
+ * A text report about the inventory results will be generated summarizing the
+ * inventory in the top section and detailing the inventory in the details section.
+ * <p>
+ * This report will be stored in the exchange in body, replacing the List of StockItems
  */
 public class InventoryReportGenerator implements org.apache.camel.Processor {
     @Override
@@ -50,15 +50,19 @@ public class InventoryReportGenerator implements org.apache.camel.Processor {
             .append("\n----------------------------------------------\n\n")
             .append("Inventory Details")
             .append("\n----------------------------------------------\n")
-            .append(String.format("%6s %10s %5s %7s %6s", "Item #", "SKU", "Qty", "Price", "Tax?")).append("\n")
-            .append(String.format("%6s %10s %5s %7s %6s", "------", "----------", "-----", "-------", "----"))
+            .append(String.format("%6s %10s %5s %7s %7s %6s", "Item #", "SKU", "Qty", "Price", "Value", "Tax?")).append("\n")
+            .append(String.format("%6s %10s %5s %7s %7s %6s", "------", "----------", "-----", "-------", "-------", "----"))
             .append("\n");
 
+
+        // @formatter:off
         @SuppressWarnings("unchecked")
         List<StockItem> items = (List<StockItem>) in.getBody();
         int index = 1;
-        for(StockItem item : items) {
-            sb.append(String.format("%6d %10s %5d %7.2f %6s", index, item.getItemSku(), item.getQuantityOnHand(), item.getMarkedPrice(), item.isTaxable() ? "Y" :"N")).append("\n");
+        for (StockItem item : items) {
+            sb.append(String.format("%6d %10s %5d %7.2f %7.2f %6s", index, item.getItemSku(), item.getQuantityOnHand(),
+                                                                    item.getMarkedPrice(), item.getItemValuation(), item.isTaxable() ? "Y" : "N"))
+              .append("\n");
             index++;
         }
         sb.append("----------------------------------------------\n\n--End Report--");
