@@ -29,6 +29,11 @@ import java.util.List;
  * This report will be stored in the exchange in body, replacing the List of StockItems
  */
 public class InventoryReportGenerator implements Processor {
+
+    public static String createReportDate() {
+        return LocalDate.now().format(DateTimeFormatter.ofPattern("MM / dd / yyyy"));
+    }
+
     @Override
     public void process(Exchange exchange) throws Exception {
         Message in = exchange.getIn();
@@ -69,9 +74,5 @@ public class InventoryReportGenerator implements Processor {
         sb.append("----------------------------------------------\n\n--End Report--");
 
         return sb.toString();
-    }
-
-    protected String createReportDate() {
-        return LocalDate.now().format(DateTimeFormatter.ofPattern("MM / dd / yyyy"));
     }
 }
