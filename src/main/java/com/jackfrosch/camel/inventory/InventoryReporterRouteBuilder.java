@@ -28,7 +28,7 @@ public class InventoryReporterRouteBuilder extends RouteBuilder {
         from("direct:reportInventory")
             .routeId("reportInventory")
             .process(new InventoryReportGenerator())
-            .to("file:/tmp/camel-demo/inventory/out");                    //  endpoint is a producer
+            .to("file:///tmp/camel-demo/inventory/out");                    //  endpoint is a producer
 
     }
 }
