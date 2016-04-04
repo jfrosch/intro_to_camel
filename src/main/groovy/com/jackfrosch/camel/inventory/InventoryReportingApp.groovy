@@ -1,14 +1,14 @@
-package com.jackfrosch.camel.inventory;
+package com.jackfrosch.camel.inventory
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.impl.DefaultCamelContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.camel.CamelContext
+import org.apache.camel.impl.DefaultCamelContext
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
-public class InventoryReportingApp {
+class InventoryReportingApp {
     final static Logger logger = LoggerFactory.getLogger(InventoryReportingApp.class);
 
-    public static void main(String[] args) throws Exception {
+    static void main(String[] args) throws Exception {
 
         CamelContext ctx = new DefaultCamelContext();
 
