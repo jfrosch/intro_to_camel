@@ -63,7 +63,8 @@ class InventoryRouteBuilderTest extends CamelTestSupport {
 
         // This will actually write the file out to the inbound directory
         template.sendBodyAndHeaders('direct:valueInventory', this.items,
-                                    [(Exchange.FILE_NAME) : TEST_INPUT_FILE_NAME, 'INVENTORY_COUNT' : this.items.size()])
+                                    [(Exchange.FILE_NAME) : TEST_INPUT_FILE_NAME,
+                                     INVENTORY_COUNT : this.items.size()])
 
         assert notifier.matchesMockWaitTime()
         assertMockEndpointsSatisfied()
@@ -85,9 +86,9 @@ class InventoryRouteBuilderTest extends CamelTestSupport {
         // This will actually write the file out to the inbound directory
         template.sendBodyAndHeaders('direct:reportInventory', this.items,
                 [(Exchange.FILE_NAME) : TEST_INPUT_FILE_NAME,
-                 'INVENTORY_COUNT' : this.items.size(),
-                 'INVENTORY_TAXABLE_VALUATION' :new BigDecimal("650.00"),
-                 'INVENTORY_NONTAXABLE_VALUATION' : new BigDecimal("400.00")])
+                 INVENTORY_COUNT : this.items.size(),
+                 INVENTORY_TAXABLE_VALUATION :new BigDecimal("650.00"),
+                 INVENTORY_NONTAXABLE_VALUATION : new BigDecimal("400.00")])
 
         assert notifier.matchesMockWaitTime()
         assertMockEndpointsSatisfied()
