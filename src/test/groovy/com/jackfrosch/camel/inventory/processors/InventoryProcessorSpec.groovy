@@ -27,9 +27,9 @@ class InventoryProcessorSpec extends Specification {
 
         then:
             items?.size() == 3
-            items[0] == new StockItem('101', 30, new BigDecimal("20.00"), true)
-            items[1] == new StockItem('102', 40, new BigDecimal("10.00"), false)
-            items[2] == new StockItem('103', 1000, new BigDecimal("0.50"), true)
+            items[0] == new StockItem('101', 30, 20.00, true)
+            items[1] == new StockItem('102', 40, 10.00, false)
+            items[2] == new StockItem('103', 1000, 0.50, true)
     }
 
     void "verify process sets the count header and the body holds three StockItems"() {

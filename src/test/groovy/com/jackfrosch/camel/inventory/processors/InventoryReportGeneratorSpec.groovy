@@ -23,8 +23,8 @@ class InventoryReportGeneratorSpec extends Specification {
             List<StockItem> items = createInput()
             inMsg.setHeader(Exchange.FILE_NAME, 'Store123_Inventory_2016-04-01_01-35-45.csv')
             inMsg.setHeader('INVENTORY_COUNT', items.size())
-            inMsg.setHeader('INVENTORY_TAXABLE_VALUATION', new BigDecimal("650.00"))
-            inMsg.setHeader('INVENTORY_NONTAXABLE_VALUATION', new BigDecimal("400.00"))
+            inMsg.setHeader('INVENTORY_TAXABLE_VALUATION', 650.00)
+            inMsg.setHeader('INVENTORY_NONTAXABLE_VALUATION', 400.00)
             inMsg.setBody(items)
         when:
             processor.process(exchange)
@@ -56,8 +56,8 @@ Item #        SKU   Qty   Price   Value   Tax?
     }
 
     private List<StockItem> createInput() {
-        [ new StockItem('101', 30, new BigDecimal("20.00"), true),
-          new StockItem('102', 40, new BigDecimal("10.00"), false),
-          new StockItem('103', 100, new BigDecimal("0.50"), true) ]
+        [ new StockItem('101', 30, 20.00, true),
+          new StockItem('102', 40, 10.00, false),
+          new StockItem('103', 100, 0.50, true) ]
     }
 }

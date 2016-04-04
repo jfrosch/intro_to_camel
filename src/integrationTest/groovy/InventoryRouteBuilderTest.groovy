@@ -56,8 +56,8 @@ class InventoryRouteBuilderTest extends CamelTestSupport {
         MockEndpoint mockEp = getMockEndpoint('mock:reportInventory')
         mockEp.expectedHeaderReceived(Exchange.FILE_NAME, TEST_INPUT_FILE_NAME)
         mockEp.expectedHeaderReceived('INVENTORY_COUNT', this.items.size())
-        mockEp.expectedHeaderReceived('INVENTORY_TAXABLE_VALUATION', new BigDecimal("650.00"))
-        mockEp.expectedHeaderReceived('INVENTORY_NONTAXABLE_VALUATION', new BigDecimal("400.00"))
+        mockEp.expectedHeaderReceived('INVENTORY_TAXABLE_VALUATION', 650.00)
+        mockEp.expectedHeaderReceived('INVENTORY_NONTAXABLE_VALUATION', 400.00)
         mockEp.expectedBodiesReceived([this.items])  // Notice this is a list of the bodies expected. We expect one message, so 1 body
         mockEp.resultMinimumWaitTime = 500
 
@@ -87,8 +87,8 @@ class InventoryRouteBuilderTest extends CamelTestSupport {
         template.sendBodyAndHeaders('direct:reportInventory', this.items,
                 [(Exchange.FILE_NAME) : TEST_INPUT_FILE_NAME,
                  INVENTORY_COUNT : this.items.size(),
-                 INVENTORY_TAXABLE_VALUATION :new BigDecimal("650.00"),
-                 INVENTORY_NONTAXABLE_VALUATION : new BigDecimal("400.00")])
+                 INVENTORY_TAXABLE_VALUATION : 650.00,
+                 INVENTORY_NONTAXABLE_VALUATION : 400.00])
 
         assert notifier.matchesMockWaitTime()
         assertMockEndpointsSatisfied()
@@ -138,9 +138,9 @@ Item #        SKU   Qty   Price   Value   Tax?
 
     private List<StockItem> createStockItems() {
         [
-                new StockItem('101', 30, new BigDecimal("20.00"), true),
-                new StockItem('102', 40, new BigDecimal("10.00"), false),
-                new StockItem('103', 100, new BigDecimal("0.50"), true)
+                new StockItem('101', 30, 20.00, true),
+                new StockItem('102', 40, 10.00, false),
+                new StockItem('103', 100, 0.50, true)
         ]
     }
 
