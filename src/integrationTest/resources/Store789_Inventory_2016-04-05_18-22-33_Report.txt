@@ -1,0 +1,20 @@
+Inventory Report - 04 / 05 / 2016
+
+Summary
+----------------------------------------------
+
+Total SKUs in inventory: 3
+Total Taxable Value in inventory: 1150.00
+Total Non-taxable Value in inventory: 600.00
+----------------------------------------------
+
+Inventory Details
+----------------------------------------------
+Item #        SKU   Qty   Price   Value   Tax?
+------ ---------- ----- ------- -------   ----
+     1        101    50   20.00 1000.00      Y
+     2        102    60   10.00  600.00      N
+     3        103   300    0.50  150.00      Y
+----------------------------------------------
+
+--End Report--
