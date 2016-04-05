@@ -1,6 +1,7 @@
 package com.jackfrosch.camel.inventory.processors
 
 import com.jackfrosch.camel.inventory.domain.StockItem
+import groovy.transform.CompileStatic
 import org.apache.camel.Exchange
 import org.apache.camel.Message
 import org.apache.camel.Processor
@@ -19,9 +20,14 @@ class InventoryValuator implements Processor {
     }
 
     // Note: The Predicate here is a Java 8 Predicate functional interface, not a Camel Predicate!
+    @CompileStatic
     protected BigDecimal calculateInventoryValuation(List<StockItem> items, Predicate<StockItem> selector) {
-        return items.findAll { selector.test(it) }
-                    .collect {it.itemValuation}
-                    .inject(BigDecimal.ZERO) { a,b -> a + b }
+        // can do it using Groovy functional way
+//        items.findAll { selector.test(it) }
+//             .collect {it.itemValuation}
+//             .inject(BigDecimal.ZERO) { BigDecimal a, BigDecimal b -> a + b } as BigDecimal
+
+        // or, leverage Java's stream
+        StreamBasedInventoryValuator.calculateInventoryValuation(items, selector)
     }
 }
