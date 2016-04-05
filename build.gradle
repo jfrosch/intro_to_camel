@@ -11,7 +11,7 @@ repositories {
     jcenter()
     mavenCentral()
 }
-
+// TODO: Review Gradle docs for setting up sourceSets
 sourceSets {
     integrationTest {
         groovy {
@@ -51,6 +51,8 @@ dependencies {
     def camelVersion = '2.16.2'
     compile "org.apache.camel:camel-core:$camelVersion"
     compile "org.apache.camel:camel-groovy:$camelVersion"
+    compile "org.apache.camel:camel-csv:$camelVersion"
+
     testCompile "org.apache.camel:camel-test:$camelVersion"
 
     testCompile 'junit:junit:4.11'
