@@ -7,7 +7,7 @@ import org.apache.camel.builder.RouteBuilder
 
 class InventoryReporterRouteBuilder extends RouteBuilder {
     @Override
-    public void configure() throws Exception {
+    void configure() throws Exception {
         getContext().setTracing(true);
 
 //        from("jetty:http://localhost:8080/inventory")

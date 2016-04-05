@@ -22,8 +22,8 @@ class InventoryValuatorSpec extends Specification {
         given:
             List<StockItem> items = createInput()
         when:
-            BigDecimal taxableValue = processor.calculateInventoryValuation(items, { it.isTaxable() })
-            BigDecimal nontaxableValue = processor.calculateInventoryValuation(items, { it.isNotTaxable() })
+            BigDecimal taxableValue = processor.calculateInventoryValuation(items, { it.taxable })
+            BigDecimal nontaxableValue = processor.calculateInventoryValuation(items, { it.notTaxable })
         then:
             taxableValue == 1100.00
             nontaxableValue == 400.00

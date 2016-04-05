@@ -3,11 +3,11 @@ package com.jackfrosch.camel.inventory.domain
 import groovy.transform.Canonical
 
 @Canonical
-class StockItem {
+public class StockItem {
     String itemSku;
-    Integer quantityOnHand;
+    int quantityOnHand;
     BigDecimal markedPrice;
-    Boolean taxable;
+    boolean taxable;
     BigDecimal itemValuation;
 
     boolean isNotTaxable() {

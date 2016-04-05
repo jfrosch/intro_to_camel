@@ -7,7 +7,7 @@ import org.apache.camel.Processor
 
 class InventoryProcessor implements Processor {
     @Override
-    public void process(Exchange exchange) throws Exception {
+    void process(Exchange exchange) throws Exception {
         Message inMsg = exchange.getIn();
         String input = (String) inMsg.getBody();
 

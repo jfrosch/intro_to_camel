@@ -21,7 +21,7 @@ class InventoryRouteBuilderTest extends CamelTestSupport {
     List<StockItem> items
 
     @Before
-    public void setUp() {
+    void setUp() {
         super.setUp()
         items = createStockItems()
     }

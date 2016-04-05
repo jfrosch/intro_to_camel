@@ -10,7 +10,7 @@ import java.util.function.Predicate
 
 class InventoryValuator implements Processor {
     @Override
-    public void process(Exchange exchange) throws Exception {
+    void process(Exchange exchange) throws Exception {
         Message inMsg = exchange.in
 
         @SuppressWarnings("unchecked")
@@ -23,11 +23,8 @@ class InventoryValuator implements Processor {
     @CompileStatic
     protected BigDecimal calculateInventoryValuation(List<StockItem> items, Predicate<StockItem> selector) {
         // can do it using Groovy functional way
-//        items.findAll { selector.test(it) }
-//             .collect {it.itemValuation}
-//             .inject(BigDecimal.ZERO) { BigDecimal a, BigDecimal b -> a + b } as BigDecimal
-
-        // or, leverage Java's stream
-        StreamBasedInventoryValuator.calculateInventoryValuation(items, selector)
+        items.findAll { selector.test(it) }
+             .collect {it.itemValuation}
+             .inject(BigDecimal.ZERO) { BigDecimal a, BigDecimal b -> a + b } as BigDecimal
     }
 }
