@@ -10,9 +10,6 @@ class InventoryReporterRouteBuilder extends RouteBuilder {
     void configure() throws Exception {
         getContext().setTracing(true);
 
-//        from("jetty:http://localhost:8080/inventory")
-//            .to("direct:valueInventory");
-
         from("file:/tmp/camel-demo/inventory/in?delay=1s&move=../archive") // polling consumer
                 .routeId("inventoryReporterEntry")
                 .convertBodyTo(String.class)
