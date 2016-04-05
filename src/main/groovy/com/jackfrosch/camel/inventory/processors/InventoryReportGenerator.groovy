@@ -25,33 +25,34 @@ class InventoryReportGenerator implements Processor {
     }
 
     private String buildReport(Message inMsg) {
-        StringBuilder sb = new StringBuilder()
-        sb.append("Inventory Report - ").append(createReportDate()).append("\n\n")
-                .append("Summary")
-                .append("\n----------------------------------------------\n\n")
-                .append("Total SKUs in inventory: ").append(inMsg.getHeader("INVENTORY_COUNT")).append("\n")
-                .append("Total Taxable Value in inventory: ").append(inMsg.getHeader("INVENTORY_TAXABLE_VALUATION")).append("\n")
-                .append("Total Non-taxable Value in inventory: ").append(inMsg.getHeader("INVENTORY_NONTAXABLE_VALUATION"))
-                .append("\n----------------------------------------------\n\n")
-                .append("Inventory Details")
-                .append("\n----------------------------------------------\n")
-                .append(String.format("%6s %10s %5s %7s %7s %6s", "Item #", "SKU", "Qty", "Price", "Value", "Tax?")).append("\n")
-                .append(String.format("%6s %10s %5s %7s %7s %6s", "------", "----------", "-----", "-------", "-------", "----"))
-                .append("\n")
+"""Inventory Report - ${createReportDate()}
 
+Summary
+----------------------------------------------
 
-        // @formatter:off
-        @SuppressWarnings("unchecked")
-        List<StockItem> items = (List<StockItem>) inMsg.getBody()
+Total SKUs in inventory: ${inMsg.getHeader("INVENTORY_COUNT")}
+Total Taxable Value in inventory: ${inMsg.getHeader("INVENTORY_TAXABLE_VALUATION")}
+Total Non-taxable Value in inventory: ${inMsg.getHeader("INVENTORY_NONTAXABLE_VALUATION")}
+----------------------------------------------
+
+Inventory Details
+----------------------------------------------
+Item #        SKU   Qty   Price   Value   Tax?
+------ ---------- ----- ------- -------   ----
+${generateDetailLines(inMsg.body as List<StockItem>)}
+----------------------------------------------
+
+--End Report--"""
+    }
+
+    String generateDetailLines(List<StockItem> items) {
+        List lines = []
         int index = 1
         for (StockItem item in items) {
-            sb.append(String.format("%6d %10s %5d %7.2f %7.2f %6s", index, item.itemSku, item.quantityOnHand,
-                                                                    item.markedPrice, item.itemValuation, item.taxable ? "Y" : "N"))
-              .append("\n")
+            lines << String.format("%6d %10s %5d %7.2f %7.2f %6s", index, item.itemSku, item.quantityOnHand,
+                                    item.markedPrice, item.itemValuation, item.taxable ? "Y" : "N")
             index++
         }
-        sb.append("----------------------------------------------\n\n--End Report--")
-
-        return sb.toString()
+        lines.join('\n')
     }
 }
