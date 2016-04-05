@@ -24,10 +24,10 @@ class InventoryProcessor implements Processor {
             items.add(createStockItem(lines[i].split(",")));
         }
 
-        return items;
+        items;
     }
 
     private StockItem createStockItem(String[] fields) {
-        return new StockItem(fields[0], Integer.valueOf(fields[1]), new BigDecimal(fields[2]), "Y".equals(fields[3]));
+        new StockItem(fields[0], Integer.valueOf(fields[1]), new BigDecimal(fields[2]), "Y".equals(fields[3]));
     }
 }

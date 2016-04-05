@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter
 
 class InventoryReportGenerator implements Processor {
     static String createReportDate() {
-        return LocalDate.now().format(DateTimeFormatter.ofPattern("MM / dd / yyyy"))
+        LocalDate.now().format(DateTimeFormatter.ofPattern("MM / dd / yyyy"))
     }
 
     @Override
@@ -21,7 +21,7 @@ class InventoryReportGenerator implements Processor {
     }
 
     private String createReportFileName(String inputFileName) {
-        return inputFileName.substring(0, inputFileName.indexOf('.')) + "_Report.txt"
+        inputFileName.substring(0, inputFileName.indexOf('.')) + "_Report.txt"
     }
 
     private String buildReport(Message inMsg) {

@@ -11,13 +11,13 @@ class StockItem {
     BigDecimal itemValuation;
 
     boolean isNotTaxable() {
-        return !taxable;
+        !taxable;
     }
 
     BigDecimal getItemValuation() {
         if(!itemValuation) {
             itemValuation = quantityOnHand * markedPrice
         }
-        return itemValuation;
+        itemValuation;
     }
 }
