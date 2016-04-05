@@ -4,18 +4,19 @@ import com.jackfrosch.camel.inventory.processors.InventoryProcessor
 import com.jackfrosch.camel.inventory.processors.InventoryReportGenerator
 import com.jackfrosch.camel.inventory.processors.InventoryValuator
 import org.apache.camel.builder.RouteBuilder
+import org.apache.camel.model.dataformat.CsvDataFormat
 
 class InventoryReporterRouteBuilder extends RouteBuilder {
     @Override
     void configure() throws Exception {
         getContext().setTracing(true);
 
-//        from("jetty:http://localhost:8080/inventory")
-//            .to("direct:valueInventory");
+        CsvDataFormat csv = new CsvDataFormat()
+        csv.skipHeaderRecord = true
 
         from("file:/tmp/camel-demo/inventory/in?delay=1s&move=../archive") // polling consumer
                 .routeId("inventoryReporterEntry")
-                .convertBodyTo(String.class)
+                .unmarshal(csv)
                 .process(new InventoryProcessor())
                 .to("direct:valueInventory");
 
