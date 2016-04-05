@@ -17,13 +17,7 @@ class InventoryProcessor implements Processor {
     }
 
     protected List<StockItem> parseInput(List<List<String>> records) {
-        List<StockItem> items = new ArrayList<>()
-
-        for(List<String> fields : records) {
-            items.add(createStockItem(fields))
-        }
-
-        items
+        records.collect { List<String> fields -> createStockItem(fields) }
     }
 
     private StockItem createStockItem(List<String> fields) {
