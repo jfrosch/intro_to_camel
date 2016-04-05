@@ -20,12 +20,12 @@ class InventoryProcessorSpec extends Specification {
 
     void "verify parseInput yields three StockItems"() {
         given:
-            String input = createInput()
+            List<List<String>> input = createInput()
 
         when:
             List<StockItem> items = processor.parseInput(input)
 
-        then:
+        then:Ø
             items?.size() == 3
             items[0] == new StockItem('101', 30, 20.00, true)
             items[1] == new StockItem('102', 40, 10.00, false)
@@ -34,7 +34,7 @@ class InventoryProcessorSpec extends Specification {
 
     void "verify process sets the count header and the body holds three StockItems"() {
         given:
-            String input = createInput()
+            List<List<String>> input = createInput()
             List<StockItem> items = processor.parseInput(input)
             inMsg.getBody() >> input
             inMsg.getHeader("INVENTORY_COUNT")
@@ -47,10 +47,11 @@ class InventoryProcessorSpec extends Specification {
             1 * exchange.in.setBody(items)
     }
 
-    private String createInput() {
-'''SKU,Qty,Price,Taxable
-101,30,20.00,Y
-102,40,10.00,N
-103,100,0.50,Y'''
+    private List<List<String>> createInput() {
+        [
+            ['101','30','20.00','Y'],
+            ['102','40','10.00','N'],
+            ['103','100','0.50','Y']
+        ]
     }
 }
