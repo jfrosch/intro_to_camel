@@ -8,26 +8,25 @@ import org.apache.camel.Processor
 class InventoryProcessor implements Processor {
     @Override
     void process(Exchange exchange) throws Exception {
-        Message inMsg = exchange.getIn();
-        String input = (String) inMsg.getBody();
+        Message inMsg = exchange.getIn()
+        List<List<String>> records = (List<List<String>>) inMsg.body
 
-        List<StockItem> items = parseInput(input);
-        inMsg.setBody(items);
-        inMsg.setHeader("INVENTORY_COUNT", items.size());
+        List<StockItem> items = parseInput(records)
+        inMsg.setBody(items)
+        inMsg.setHeader("INVENTORY_COUNT", items.size())
     }
 
-    protected List<StockItem> parseInput(String input) {
-        List<StockItem> items = new ArrayList<>();
+    protected List<StockItem> parseInput(List<List<String>> records) {
+        List<StockItem> items = new ArrayList<>()
 
-        String[] lines = input.split("\n");
-        for(int i = 1; i < lines.length; i++) {
-            items.add(createStockItem(lines[i].split(",")));
+        for(List<String> fields : records) {
+            items.add(createStockItem(fields))
         }
 
-        items;
+        items
     }
 
-    private StockItem createStockItem(String[] fields) {
-        new StockItem(fields[0], Integer.valueOf(fields[1]), new BigDecimal(fields[2]), "Y".equals(fields[3]));
+    private StockItem createStockItem(List<String> fields) {
+        new StockItem(fields[0], Integer.valueOf(fields[1]), new BigDecimal(fields[2]), "Y".equals(fields[3]))
     }
 }
