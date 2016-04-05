@@ -29,7 +29,7 @@ public class InventoryProcessor implements Processor {
     @Override
     public void process(Exchange exchange) throws Exception {
         Message in = exchange.getIn();
-        String input = (String) in.getBody();
+        String input = (String) in.getBody(); // in.getBody(String.class) & no cast
 
         List<StockItem> items = parseInput(input);
         in.setBody(items);
