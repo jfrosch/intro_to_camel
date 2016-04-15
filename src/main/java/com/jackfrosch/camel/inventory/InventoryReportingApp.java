@@ -16,7 +16,7 @@ public class InventoryReportingApp {
         ctx.addRoutes(new InventoryReporterRouteBuilder());
 
         ctx.start();
-        Thread.sleep(60000);
+        Thread.sleep(150000);
         ctx.stop();
     }
 }
