@@ -15,10 +15,10 @@ class SplitterAggregatorRouteBuilder extends RouteBuilder {
         from("direct:orderEntry")
                 .routeId("orderEntry")
                 .bean(orderHandler, 'prepareForSplit')
-                .split(body())                                      // one thread
+//                .split(body())                                      // one thread
 //                .split(body()).parallelProcessing()                 // 10 threads
-//                .split(body()).executorService(cachedThreadPool)    // variable threads as load changes
-//                .split(body()).executorService(fixedThreadPool)     // same # of threads as line items
+                .split(body()).executorService(cachedThreadPool)    // variable threads as load changes
+                .split(body()).executorService(fixedThreadPool)     // same # of threads as line items
                 .to('direct:calculateTax')
 
         from("direct:calculateTax")
@@ -38,6 +38,7 @@ class SplitterAggregatorRouteBuilder extends RouteBuilder {
         from("direct:finished")
                 .routeId("finished")
                 .log('Received at finished: Order: ${body} with ${body.lineItems.size()} lineItems and total value = ${body.orderTotal}')
+                .log('LineItem order: ${body.itemNumbers}')
 
     }
 }
