@@ -5,14 +5,6 @@ import org.apache.camel.Message
 
 class OrderHandler {
 
-    void rebuildOrder(Exchange exchange) {
-        Message msg = exchange.in
-        Order order = new Order(orderId: msg.headers.orderId,
-                                postalCode: msg.headers.postalCode,
-                                lineItems: msg.body as List<LineItem>)
-        msg.body = order
-    }
-
     void calculateTax(Exchange exchange) {
         String postalCode = exchange.in.headers.postalCode
         LineItem item = exchange.in.body as LineItem
@@ -42,5 +34,17 @@ class OrderHandler {
         msg.headers.lineItemCount = order.lineItems.size()
 
         exchange.in.body = order.lineItems
+    }
+
+    void rebuildOrder(Exchange exchange) {
+        Message msg = exchange.in
+        List<LineItem> items = msg.body as List<LineItem>
+        items.sort { it.itemNo }
+
+        Order order = new Order(orderId: msg.headers.orderId,
+                postalCode: msg.headers.postalCode,
+                lineItems: items)
+
+        msg.body = order
     }
 }
