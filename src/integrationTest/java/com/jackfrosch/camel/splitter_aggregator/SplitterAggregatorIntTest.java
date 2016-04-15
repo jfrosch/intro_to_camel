@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class SplitterAggregatorIntTest extends CamelTestSupport {
-    private static final int NUMBER_OF_LINE_ITEMS = 100;
+    private static final int NUMBER_OF_LINE_ITEMS = 10; // make it a 100 to see effect of concurrency
 
     @Before
     public void setup() throws Exception {
@@ -20,7 +20,7 @@ public class SplitterAggregatorIntTest extends CamelTestSupport {
 
     @Test
     public void testFullRouting() {
-        List<Order> orders = new ArrayList<Order>();
+        List<Order> orders = new ArrayList<>();
         orders.add(createOrder("order-1", "12345"));
 //        orders.add(createOrder("order-2", "67890"));
 //        orders.add(createOrder("order-3", "99999"));
