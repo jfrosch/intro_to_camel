@@ -16,4 +16,8 @@ class Order {
         lineItems.collect { LineItem item ->  item.price * item.qty * (1.00 + item.taxRate) }
                  .inject(0.00) { sum, value -> sum + value }
     }
+
+    List<Integer> getItemNumbers() {
+        lineItems*.itemNo
+    }
 }
