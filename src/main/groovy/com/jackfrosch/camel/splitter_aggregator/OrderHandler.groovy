@@ -5,18 +5,7 @@ import org.apache.camel.Message
 
 class OrderHandler {
 
-    void breakOutLineItems(Exchange exchange) {
-        Message msg = exchange.in
-        Order order = msg.body as Order
-
-        msg.headers.orderId = order.orderId
-        msg.headers.postalCode = order.postalCode
-        msg.headers.lineItemCount = order.lineItems.size()
-
-        exchange.in.body = order.lineItems
-    }
-
-    void buildOrder(Exchange exchange) {
+    void rebuildOrder(Exchange exchange) {
         Message msg = exchange.in
         Order order = new Order(orderId: msg.headers.orderId,
                                 postalCode: msg.headers.postalCode,
@@ -42,5 +31,16 @@ class OrderHandler {
         item.taxRate = taxRate
 
         Thread.sleep(250) // simulating time to calculate it
+    }
+
+    void prepareForSplit(Exchange exchange) {
+        Message msg = exchange.in
+        Order order = msg.body as Order
+
+        msg.headers.orderId = order.orderId
+        msg.headers.postalCode = order.postalCode
+        msg.headers.lineItemCount = order.lineItems.size()
+
+        exchange.in.body = order.lineItems
     }
 }
