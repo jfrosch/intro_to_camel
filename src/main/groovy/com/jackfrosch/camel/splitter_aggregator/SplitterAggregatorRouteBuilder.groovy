@@ -14,7 +14,7 @@ class SplitterAggregatorRouteBuilder extends RouteBuilder {
     void configure() {
         from("direct:orderEntry")
                 .routeId("orderEntry")
-                .bean(orderHandler, 'breakOutLineItems')
+                .bean(orderHandler, 'prepareForSplit')
                 .split(body())                                      // one thread
 //                .split(body()).parallelProcessing()                 // 10 threads
 //                .split(body()).executorService(cachedThreadPool)    // variable threads as load changes
@@ -32,7 +32,7 @@ class SplitterAggregatorRouteBuilder extends RouteBuilder {
                 .log('Received at aggregator: ${body}')
                 .aggregate(header('orderId'), new LineItemAggregatorStrategy())
                     .completionSize(header('lineItemCount'))
-                .bean(orderHandler, 'buildOrder')
+                .bean(orderHandler, 'rebuildOrder')
                 .to('direct:finished')
 
         from("direct:finished")
