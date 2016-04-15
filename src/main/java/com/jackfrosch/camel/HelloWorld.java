@@ -17,8 +17,10 @@ public class HelloWorld {
         ctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
+
                 from("timer:sayHello?period=1s")
                     .log("Hello");
+
             }
         });
 
