@@ -6,8 +6,9 @@ import org.apache.camel.Message
 class OrderHandler {
 
     void breakOutLineItems(Exchange exchange) {
-        Order order = exchange.in.body as Order
         Message msg = exchange.in
+        Order order = msg.body as Order
+
         msg.headers.orderId = order.orderId
         msg.headers.postalCode = order.postalCode
         msg.headers.lineItemCount = order.lineItems.size()
@@ -24,7 +25,7 @@ class OrderHandler {
     }
 
     void calculateTax(Exchange exchange) {
-        String postalCode = exchange.in.getHeader('postalCode', String)
+        String postalCode = exchange.in.headers.postalCode
         LineItem item = exchange.in.body as LineItem
 
         BigDecimal taxRate
