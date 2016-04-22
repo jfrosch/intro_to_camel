@@ -1,4 +1,5 @@
-import com.jackfrosch.camel.inventory.InventoryReporterRouteBuilder
+package com.jackfrosch.camel.inventory
+
 import com.jackfrosch.camel.inventory.domain.StockItem
 import com.jackfrosch.camel.inventory.processors.InventoryReportGenerator
 import org.apache.camel.Exchange
