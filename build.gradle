@@ -51,6 +51,8 @@ dependencies {
     def camelVersion = '2.16.2'
     compile "org.apache.camel:camel-core:$camelVersion"
     compile "org.apache.camel:camel-groovy:$camelVersion"
+    compile "org.apache.camel:camel-jetty:$camelVersion"
+    compile "org.apache.camel:camel-http:$camelVersion"
 
     testCompile 'junit:junit:4.11'
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
