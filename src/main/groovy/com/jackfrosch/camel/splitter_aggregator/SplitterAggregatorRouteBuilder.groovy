@@ -12,6 +12,8 @@ class SplitterAggregatorRouteBuilder extends RouteBuilder {
     ExecutorService fixedThreadPool = Executors.newFixedThreadPool(100) // same size as number of line items
 
     void configure() {
+//        context.tracing = true
+
         from("direct:orderEntry")
                 .routeId("orderEntry")
                 .bean(orderHandler, 'prepareForSplit')
@@ -23,13 +25,13 @@ class SplitterAggregatorRouteBuilder extends RouteBuilder {
 
         from("direct:calculateTax")
                 .routeId("calculateTax")
-                .log('Received at calculateTax: ${body}')
+                .log('Received at calculateTax: orderId=${header.orderId}, body=${body}')
                 .bean(orderHandler, 'calculateTax')
                 .to("direct:aggregator")
 
         from("direct:aggregator")
                 .routeId("aggregator")
-                .log('Received at aggregator: ${body}')
+                .log('Received at aggregator: orderId=${header.orderId}, body=${body}')
                 .aggregate(header('orderId'), new LineItemAggregatorStrategy())
                     .completionSize(header('lineItemCount'))
                 .bean(orderHandler, 'rebuildOrder')
