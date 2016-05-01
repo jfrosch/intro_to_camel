@@ -1,4 +1,4 @@
-package com.jackfrosch.camel;
+package com.jackfrosch.camel.pingpong;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
