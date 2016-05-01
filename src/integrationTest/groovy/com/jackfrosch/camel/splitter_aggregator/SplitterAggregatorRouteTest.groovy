@@ -10,10 +10,10 @@ import org.junit.Test
 import java.util.concurrent.TimeUnit
 
 /*
- A groovy version of the integration test
+ A Groovy version of the integration test
  */
 class SplitterAggregatorRouteTest extends CamelTestSupport {
-    private static final int NUMBER_OF_LINE_ITEMS = 100 // make it a 100 to see effect of concurrency
+    private static final int NUMBER_OF_LINE_ITEMS = 10 // make it a 100 to see effect of concurrency
 
     @Before
     void setup() throws Exception {
@@ -61,7 +61,7 @@ class SplitterAggregatorRouteTest extends CamelTestSupport {
     void "verify line items are aggregated in order and order reconstituted"() {
         int numberOfLineItems = 10
         Order order = createOrder("testOrder", "12345", numberOfLineItems)
-        order.lineItems*.taxRate = 0.05
+        order.lineItems*.taxRate = 0.05         // Note Groovy goodness here
         BigDecimal orderTotal = order.orderTotal
 
         context.getRouteDefinition("aggregator").adviceWith(context,
@@ -101,8 +101,7 @@ class SplitterAggregatorRouteTest extends CamelTestSupport {
 
     @Test
     void "exercise all routes in order splitting and aggregation"() {
-        List<Order> orders = []
-        orders << createOrder("order-1", "12345")
+        List<Order> orders = [ createOrder("order-1", "12345") ]
 //        orders << createOrder("order-2", "67890")
 //        orders << createOrder("order-3", "99999")
 
@@ -113,7 +112,7 @@ class SplitterAggregatorRouteTest extends CamelTestSupport {
                 .create()
 
         orders.each { Order order ->
-            template.asyncRequestBody("direct:orderEntry", order)
+            template.asyncRequestBody("direct:orderEntry", order) // Note async send
         }
 
         assert notifier.matches(NUMBER_OF_LINE_ITEMS, TimeUnit.SECONDS)
@@ -122,7 +121,8 @@ class SplitterAggregatorRouteTest extends CamelTestSupport {
     private Order createOrder(String orderId, String postalCode, int numberOfLineItems = NUMBER_OF_LINE_ITEMS) {
         Order order = new Order(orderId: orderId, postalCode: postalCode)
 
-        (1..numberOfLineItems).each { i ->
+        // Note groogy goodness using Range
+        (1..numberOfLineItems).each { int i ->
             order += new LineItem(itemNo: i, productNo: "P${i}", price: 1.00, qty: 1)
         }
         order
