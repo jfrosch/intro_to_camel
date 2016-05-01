@@ -1,4 +1,4 @@
-package com.jackfrosch.camel;
+package com.jackfrosch.camel.helloworld;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
