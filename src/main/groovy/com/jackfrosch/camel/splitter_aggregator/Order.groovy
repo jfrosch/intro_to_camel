@@ -8,6 +8,11 @@ class Order {
     String postalCode               // drives tax on LineItems
     List<LineItem> lineItems = []
 
+    Order plus(LineItem item) {
+        lineItems << item
+        this
+    }
+
     void addLineItem(LineItem item) {
         lineItems << item
     }
