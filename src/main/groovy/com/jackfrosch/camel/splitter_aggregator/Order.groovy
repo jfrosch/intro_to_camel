@@ -1,8 +1,10 @@
 package com.jackfrosch.camel.splitter_aggregator
 
+import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
 @ToString(includeNames = true, includePackage = false, ignoreNulls = true, excludes = 'lineItems')
+@EqualsAndHashCode
 class Order {
     String orderId                  // this will be our split item "correlation id"
     String postalCode               // drives tax on LineItems
